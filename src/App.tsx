@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
-import * as api from './services/api';
+// import React, { useEffect, useState } from 'react';
+// import './App.css';
+// import { Route, Routes } from 'react-router-dom';
+// import * as api from './services/api';
 
 function App() {
   // const [categories, setCategories] = useState([]);
