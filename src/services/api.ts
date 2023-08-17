@@ -1,20 +1,19 @@
 import { Query } from '../types/queryTypes';
 
 export async function getCategories() {
-  // Implemente aqui
-  const fetchCategories = await fetch('https://api.mercadolibre.com/sites/MLB/categories')
-    .catch((erro) => erro);
-  const data = fetchCategories.json();
+  const fetchCategories = await fetch('https://api.mercadolibre.com/sites/MLB/categories');
+  const data = await fetchCategories.json();
   return data;
 }
 
-export async function getProductsFromCategoryAndQuery(query: Query) {
+getCategories();
+
+export async function getProductsFromCategoryAndQuery(categoryId: string, query: Query) {
   // Implemente aqui! Quando o fizer, descomente os parâmetros que essa função recebe
-  const fetchResult = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$QUERY}`)
-    .then((element) => element.json())
-    .then((dados) => dados)
-    .catch((erro) => erro);
-  return fetchResult;
+  const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}&q=${query}`);
+  const data = await response.json();
+
+  return data;
 }
 
 export async function getProductById() {

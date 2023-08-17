@@ -1,23 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import * as api from './services/api';
 
 function App() {
+  // const [categories, setCategories] = useState([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await api.getCategories();
+  //     setCategories(data);
+  //   };
+  //   fetchData();
+  // }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div>
+
+      <h1>Nada ainda</h1>
+
     </div>
+    // <Routes>
+    //   <Route path="/" element={ <Search /> } />
+
+  // </Routes>
   );
 }
 
