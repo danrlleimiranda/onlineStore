@@ -30,3 +30,15 @@ export type Query = {
   'available_filters': [
   ]
 };
+
+export type CategoryType = {
+  id: string
+  name: string
+};
+
+export type ProductResultType = {
+  id: string
+  title: string
+  thumbnail: string
+  price: number
+};
