@@ -1,25 +1,20 @@
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  getCategories,
   getProductsFromCategoryAndQuery,
 } from '../services/api';
-import { CategoryType, ProductResultType } from '../types/queryTypes';
+import { ProductResultType, CategoryType } from '../types/queryTypes';
 import ProductsList from './ProductsList';
+import Search from '../components/Search';
 
-function Home() {
-  const [categoriesData, setCategoriesData] = useState<CategoryType[]>();
+type HomeProps = {
+  handleProductDetails: (product: ProductResultType) => void
+  categories: CategoryType[]
+};
+
+function Home({ handleProductDetails, categories }:HomeProps) {
   const [searchedProducts, setSearchedProducts] = useState<string>('');
   const [returnedProducts, setReturnedProducts] = useState<ProductResultType[]>([]);
   const [productsByCategory, setProductsByCategory] = useState<ProductResultType[]>([]);
-
-  useEffect(() => {
-    const getCategoriesData = async () => {
-      const categoriesFetch = await getCategories();
-      setCategoriesData(categoriesFetch);
-    };
-    getCategoriesData();
-  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement
   | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -29,23 +24,22 @@ function Home() {
   const handleClick = async () => {
     const getSearchedProducts = await getProductsFromCategoryAndQuery(searchedProducts);
     setReturnedProducts(getSearchedProducts.results);
+    setProductsByCategory([]);
+    setSearchedProducts('');
   };
 
   const handleCategoryClick = async (categoryName: string) => {
     const getCategorizedProducts = await getProductsFromCategoryAndQuery(categoryName);
     setProductsByCategory(getCategorizedProducts.results);
+    setReturnedProducts([]);
   };
 
   return (
     <div>
-      <button>
-        <Link to="/shopping-cart" data-testid="shopping-cart-button">
-          Carrinho
-        </Link>
-      </button>
-      <p data-testid="home-initial-message">
-        Digite algum termo de pesquisa ou escolha uma categoria.
-      </p>
+      <Search
+        handleCategoryClick={ handleCategoryClick }
+        categories={ categories }
+      />
       <label>
         <input
           type="text"
@@ -62,27 +56,21 @@ function Home() {
       )}
       {returnedProducts.length > 0 && (
         <div>
-          <ProductsList returnedProducts={ returnedProducts } />
+          <ProductsList
+            returnedProducts={ returnedProducts }
+            handleProductDetails={ handleProductDetails }
+          />
         </div>
       )}
       {productsByCategory.length > 0 && (
         <div>
-          <ProductsList returnedProducts={ productsByCategory } />
+          <ProductsList
+            returnedProducts={ productsByCategory }
+            handleProductDetails={ handleProductDetails }
+          />
         </div>
       )}
-      <ul className="category-list">
-        {categoriesData?.map((category) => (
-          <li key={ category.id }>
-            <button
-              data-testid="category"
-              className="category-btn"
-              onClick={ () => handleCategoryClick(category.name) }
-            >
-              {category.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+
     </div>
   );
 }
