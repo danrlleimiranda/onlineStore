@@ -6,6 +6,7 @@ import {
 } from '../services/api';
 import { CategoryType, ProductResultType } from '../types/queryTypes';
 import ProductsList from './ProductsList';
+import ProductDisplayCard from './ProductDisplayCard';
 
 function Home() {
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>();
@@ -83,6 +84,15 @@ function Home() {
           </li>
         ))}
       </ul>
+      <div>
+        {returnedProducts.map((product) => (
+          <ProductDisplayCard
+            key={ product.id }
+            product={ product }
+            // history={ history }
+          />
+        ))}
+      </div>
     </div>
   );
 }

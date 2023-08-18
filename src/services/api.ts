@@ -1,4 +1,4 @@
-import { Query } from '../types/queryTypes';
+import { Query, Products } from '../types/queryTypes';
 
 export async function getCategories() {
   const fetchCategories = await fetch('https://api.mercadolibre.com/sites/MLB/categories');
@@ -23,3 +23,10 @@ export async function getProductById(categoryId: string) {
   const API_URL = `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}`;
   return fetch(API_URL).then((response) => response.json());
 }
+
+// export async function getProductDetails(productId: Products) {
+//   const fetchProductDetails = await fetch(`https://api.mercadolibre.com/items/${productId}`)
+//     .catch((erro) => erro);
+//   const data = await fetchProductDetails.json();
+//   return data;
+// }

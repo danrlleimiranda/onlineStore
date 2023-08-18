@@ -42,3 +42,15 @@ export type ProductResultType = {
   thumbnail: string
   price: number
 };
+
+export type Products = {
+  id: string;
+  title: string;
+  thumbnail: string;
+  price: number;
+  attributes: [{
+    id: string;
+    name: string;
+    value_name: string;
+  }]
+};
