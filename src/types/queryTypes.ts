@@ -41,4 +41,12 @@ export type ProductResultType = {
   title: string
   thumbnail: string
   price: number
+  available_quantity: number,
+};
+
+export type ProductDetailsType = {
+  base_price: number,
+  available_quantity: number,
+  title: string,
+  thumbnail: string,
 };
