@@ -18,10 +18,10 @@ function App() {
     fetchData();
   }, []);
 
-  const handleProductDetails = (product: ProductResultType) => {
-    setProductDetails([...productDetails, product]);
-  };
   const localStorageProducts = JSON.stringify(productDetails);
+  const handleProductDetails = (product: ProductResultType) => {
+    setProductDetails([...productDetails, { ...product, quantidade: 1 }]);
+  };
   localStorage.setItem('cartProducts', localStorageProducts);
   return (
     <Routes>
@@ -29,6 +29,7 @@ function App() {
         path="/shopping-cart"
         element={ <ShoppingCart
           productDetails={ productDetails }
+          setProductDetails={ setProductDetails }
         /> }
       />
       <Route
