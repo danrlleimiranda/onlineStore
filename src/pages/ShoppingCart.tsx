@@ -58,35 +58,40 @@ function ShoppingCart() {
       {(cartItems === null
       || cartItems?.length === 0)
         && <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>}
-      <ul>
+      <ul className="product-list">
         {cartItems && cartItems.map((details:ProductResultType) => (
           <li key={ details.title }>
-            <h3 data-testid="shopping-cart-product-name">{details.title}</h3>
-            <img src={ details.thumbnail } alt={ `${details.title}` } />
-            <p>{`R$ ${(details.price * details.quantidade).toFixed(2)}`}</p>
-            <button
-              onClick={ () => handleDeleteButton(details.id) }
-              data-testid="remove-product"
-            >
-              Remover do carrinho
+            <div className="product-card">
 
-            </button>
-            <div>
-              <button
-                onClick={ () => handleDecreaseButton(details.id) }
-                data-testid="product-decrease-quantity"
-              >
-                -
+              <h4 data-testid="shopping-cart-product-name">{details.title}</h4>
+              <img src={ details.thumbnail } alt={ `${details.title}` } />
+              <p>{`R$ ${(details.price * details.quantidade).toFixed(2)}`}</p>
 
-              </button>
-              <span data-testid="shopping-cart-product-quantity">
-                {details.quantidade}
-              </span>
+              <div>
+                <button
+                  onClick={ () => handleDecreaseButton(details.id) }
+                  data-testid="product-decrease-quantity"
+                >
+                  -
+
+                </button>
+                <span data-testid="shopping-cart-product-quantity">
+                  {details.quantidade}
+                </span>
+                <button
+                  onClick={ () => handleIncreaseButton(details.id) }
+                  data-testid="product-increase-quantity"
+                >
+                  +
+
+                </button>
+
+              </div>
               <button
-                onClick={ () => handleIncreaseButton(details.id) }
-                data-testid="product-increase-quantity"
+                onClick={ () => handleDeleteButton(details.id) }
+                data-testid="remove-product"
               >
-                +
+                Remover do carrinho
 
               </button>
             </div>

@@ -5,6 +5,7 @@ import * as api from './services/api';
 import ShoppingCart from './pages/ShoppingCart';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
+import './App.css';
 
 function App() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
