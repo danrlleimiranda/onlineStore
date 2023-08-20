@@ -41,7 +41,8 @@ export type ProductResultType = {
   title: string
   thumbnail: string
   price: number
-  available_quantity: number,
+  quantidade: number,
+  avaiable_quantity: number
 };
 
 export type ProductDetailsType = {
@@ -49,4 +50,16 @@ export type ProductDetailsType = {
   available_quantity: number,
   title: string,
   thumbnail: string,
+};
+
+export type Products = {
+  id: string;
+  title: string;
+  thumbnail: string;
+  price: number;
+  attributes: [{
+    id: string;
+    name: string;
+    value_name: string;
+  }]
 };

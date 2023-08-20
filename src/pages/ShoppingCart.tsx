@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductResultType } from '../types/queryTypes';
 
 type ShoppingCartProps = {
@@ -6,34 +6,88 @@ type ShoppingCartProps = {
 };
 
 function ShoppingCart({ productDetails }: ShoppingCartProps) {
-  const [productQuantity, setProductQuantity] = useState(1);
+  const [cartItems, setCartItems] = useState< ProductResultType[]>();
 
-  const handleClickLess = () => {
-    if (productQuantity > 1) { setProductQuantity(productQuantity - 1); }
+  useEffect(() => {
+    const cartProductsStringfied = localStorage.getItem('cartProducts') as string;
+    const cartProductsParsed = JSON.parse(cartProductsStringfied);
+    setCartItems(cartProductsParsed);
+  }, []);
+
+  const handleDecreaseButton = (id: string) => {
+    const existingProductsJSON = localStorage.getItem('cartProducts');
+    const existingProducts: ProductResultType[] = existingProductsJSON
+      ? JSON.parse(existingProductsJSON)
+      : [];
+    existingProducts.forEach((product: ProductResultType) => {
+      if (product.id === id) {
+        const newQuantity = product.quantidade > 1
+          ? product.quantidade - 1 : product.quantidade;
+        product.quantidade = newQuantity;
+        localStorage.setItem('cartProducts', JSON.stringify(existingProducts));
+        setCartItems(existingProducts);
+      }
+    });
+  };
+
+  const handleIncreaseButton = (id: string) => {
+    const existingProductsJSON = localStorage.getItem('cartProducts');
+    const existingProducts: ProductResultType[] = existingProductsJSON
+      ? JSON.parse(existingProductsJSON)
+      : [];
+
+    existingProducts.forEach((product: ProductResultType) => {
+      if (product.id === id) {
+        const newQuantity = product.quantidade + 1;
+        product.quantidade = newQuantity;
+        localStorage.setItem('cartProducts', JSON.stringify(existingProducts));
+        setCartItems(existingProducts);
+      }
+    });
+  };
+
+  const handleDeleteButton = (id:string) => {
+    const cartProductsStringfied = localStorage.getItem('cartProducts') as string;
+    const cartProductsParsed = JSON.parse(cartProductsStringfied);
+    const removeItem = cartProductsParsed
+      .filter((product: ProductResultType) => product.id !== id);
+    setCartItems(removeItem);
+    localStorage.setItem('cartProducts', JSON.stringify(removeItem));
   };
 
   return (
     <div>
-      {productDetails.length === 0
+      {(productDetails.length < 1
+      || cartItems === null
+      || cartItems?.length === 0)
         && <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>}
       <ul>
-        {productDetails.map((details) => (
+        {cartItems && cartItems.map((details:ProductResultType) => (
           <li key={ details.title }>
             <h3 data-testid="shopping-cart-product-name">{details.title}</h3>
-            <img src={ details.thumbnail } alt="" />
-            <p>{`R$ ${details.price * productQuantity}`}</p>
+            <img src={ details.thumbnail } alt={ `${details.title}` } />
+            <p>{`R$ ${(details.price * details.quantidade).toFixed(2)}`}</p>
+            <button
+              onClick={ () => handleDeleteButton(details.id) }
+              data-testid="remove-product"
+            >
+              Remover do carrinho
+
+            </button>
             <div>
               <button
-                onClick={ handleClickLess }
+                onClick={ () => handleDecreaseButton(details.id) }
+                data-testid="product-decrease-quantity"
               >
                 -
 
               </button>
               <span data-testid="shopping-cart-product-quantity">
-                {productQuantity}
+                {details.quantidade}
               </span>
               <button
-                onClick={ () => setProductQuantity(productQuantity + 1) }
+                onClick={ () => handleIncreaseButton(details.id) }
+                data-testid="product-increase-quantity"
               >
                 +
 

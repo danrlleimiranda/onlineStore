@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ProductResultType } from '../types/queryTypes';
 
 type ProductsProps = {
@@ -9,17 +10,21 @@ function ProductsList({ returnedProducts,
   handleProductDetails }: ProductsProps) {
   return (
     returnedProducts.map((product:ProductResultType) => (
-      <div key={ product.id } data-testid="product">
-        <h4>{product.title}</h4>
-        <img src={ product.thumbnail } alt={ product.title } />
-        <p>{`R$ ${product.price && product.price.toFixed(2)}`}</p>
-        <button
-          data-testid="product-add-to-cart"
-          onClick={ () => handleProductDetails(product) }
-        >
-          Adicionar ao carrinho
+      <div key={ product.id }>
+        <div data-testid="product">
+          <Link to={ `/product/${product.id}` } data-testid="product-detail-link">
+            <h4>{product.title}</h4>
+            <img src={ product.thumbnail } alt={ product.title } />
+            <p>{`R$ ${product.price && product.price.toFixed(2)}`}</p>
+          </Link>
+          <button
+            data-testid="product-add-to-cart"
+            onClick={ () => handleProductDetails(product) }
+          >
+            Adicionar ao carrinho
 
-        </button>
+          </button>
+        </div>
       </div>
     ))
   );
