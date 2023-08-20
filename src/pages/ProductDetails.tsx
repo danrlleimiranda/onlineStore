@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ProductDisplayCard from '../components/ProductDisplayCard';
 import { getProductById } from '../services/api';
 import { ProductResultType } from '../types/queryTypes';
 
