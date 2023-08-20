@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ProductResultType } from '../types/queryTypes';
 
-type ShoppingCartProps = {
-  productDetails: ProductResultType[];
-};
-
-function ShoppingCart({ productDetails }: ShoppingCartProps) {
+function ShoppingCart() {
   const [cartItems, setCartItems] = useState< ProductResultType[]>();
 
   useEffect(() => {
@@ -57,8 +54,8 @@ function ShoppingCart({ productDetails }: ShoppingCartProps) {
 
   return (
     <div>
-      {(productDetails.length < 1
-      || cartItems === null
+      <div><Link to="/">Home</Link></div>
+      {(cartItems === null
       || cartItems?.length === 0)
         && <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>}
       <ul>
