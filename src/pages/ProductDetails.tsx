@@ -26,7 +26,7 @@ function ProductDetails({ handleProductDetails }: ProductDetailsProps) {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <div>
