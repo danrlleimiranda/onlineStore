@@ -18,18 +18,27 @@ function App() {
     fetchData();
   }, []);
 
-  const localStorageProducts = JSON.stringify(productDetails);
   const handleProductDetails = (product: ProductResultType) => {
-    setProductDetails([...productDetails, { ...product, quantidade: 1 }]);
+    // Recuperar os produtos existentes do localStorage
+    const existingProductsJSON = localStorage.getItem('cartProducts');
+    const existingProducts: ProductResultType[] = existingProductsJSON
+      ? JSON.parse(existingProductsJSON)
+      : [];
+
+    // Adicionar o novo produto à lista de produtos existente
+    const updatedProducts = [...existingProducts, { ...product, quantidade: 1 }];
+
+    // Atualizar o estado local e o localStorage com a lista atualizada de produtos
+    setProductDetails(updatedProducts);
+    localStorage.setItem('cartProducts', JSON.stringify(updatedProducts));
   };
-  localStorage.setItem('cartProducts', localStorageProducts);
+
   return (
     <Routes>
       <Route
         path="/shopping-cart"
         element={ <ShoppingCart
           productDetails={ productDetails }
-          setProductDetails={ setProductDetails }
         /> }
       />
       <Route

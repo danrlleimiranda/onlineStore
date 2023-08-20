@@ -1,49 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductResultType } from '../types/queryTypes';
 
 type ShoppingCartProps = {
   productDetails: ProductResultType[];
-  setProductDetails: (product: ProductResultType[]) => void
 };
 
-function ShoppingCart({ productDetails, setProductDetails }: ShoppingCartProps) {
-  const cartProductsStringfied = localStorage.getItem('cartProducts') as string;
-  const cartProductsParsed = JSON.parse(cartProductsStringfied);
+function ShoppingCart({ productDetails }: ShoppingCartProps) {
+  const [cartItems, setCartItems] = useState< ProductResultType[]>();
+
+  useEffect(() => {
+    const cartProductsStringfied = localStorage.getItem('cartProducts') as string;
+    const cartProductsParsed = JSON.parse(cartProductsStringfied);
+    setCartItems(cartProductsParsed);
+  }, []);
 
   const handleDecreaseButton = (id: string) => {
-    const findItem = cartProductsParsed
-      .find((product: ProductResultType) => product.id === id);
-    const index = productDetails.findIndex((product) => product.id === id);
-
-    if (findItem.quantidade > 1) {
-      productDetails[index] = { ...findItem,
-        quantidade: findItem.quantidade -= 1 };
-      setProductDetails([...productDetails]);
-    }
+    const existingProductsJSON = localStorage.getItem('cartProducts');
+    const existingProducts: ProductResultType[] = existingProductsJSON
+      ? JSON.parse(existingProductsJSON)
+      : [];
+    existingProducts.forEach((product: ProductResultType) => {
+      if (product.id === id) {
+        const newQuantity = product.quantidade > 1
+          ? product.quantidade - 1 : product.quantidade;
+        product.quantidade = newQuantity;
+        localStorage.setItem('cartProducts', JSON.stringify(existingProducts));
+        setCartItems(existingProducts);
+      }
+    });
   };
 
   const handleIncreaseButton = (id: string) => {
-    const findItem = cartProductsParsed
-      .find((parsed: ProductResultType) => parsed.id === id);
-    const index = productDetails.findIndex((product) => product.id === id);
+    const existingProductsJSON = localStorage.getItem('cartProducts');
+    const existingProducts: ProductResultType[] = existingProductsJSON
+      ? JSON.parse(existingProductsJSON)
+      : [];
 
-    productDetails[index] = { ...findItem,
-      quantidade: findItem.quantidade += 1 };
-    setProductDetails([...productDetails]);
+    existingProducts.forEach((product: ProductResultType) => {
+      if (product.id === id) {
+        const newQuantity = product.quantidade + 1;
+        product.quantidade = newQuantity;
+        localStorage.setItem('cartProducts', JSON.stringify(existingProducts));
+        setCartItems(existingProducts);
+      }
+    });
   };
 
   const handleDeleteButton = (id:string) => {
+    const cartProductsStringfied = localStorage.getItem('cartProducts') as string;
+    const cartProductsParsed = JSON.parse(cartProductsStringfied);
     const removeItem = cartProductsParsed
       .filter((product: ProductResultType) => product.id !== id);
-    setProductDetails(removeItem);
+    setCartItems(removeItem);
+    localStorage.setItem('cartProducts', JSON.stringify(removeItem));
   };
 
   return (
     <div>
-      {(productDetails.length < 1 || cartProductsParsed === null)
+      {(productDetails.length < 1 || cartItems === null)
         && <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>}
       <ul>
-        {cartProductsParsed && cartProductsParsed.map((details:ProductResultType) => (
+        {cartItems && cartItems.map((details:ProductResultType) => (
           <li key={ details.title }>
             <h3 data-testid="shopping-cart-product-name">{details.title}</h3>
             <img src={ details.thumbnail } alt={ `${details.title}` } />
