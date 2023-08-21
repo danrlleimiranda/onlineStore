@@ -42,7 +42,8 @@ export type ProductResultType = {
   thumbnail: string
   price: number
   quantidade: number,
-  avaiable_quantity: number
+  available_quantity: number
+  shipping: { free_shipping: boolean }
 };
 
 export type ProductDetailsType = {
