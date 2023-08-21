@@ -33,15 +33,13 @@ function ShoppingCart({ productDetails }: ShoppingCartProps) {
   const handleIncreaseButton = (id: string): void => {
     const existingProductsJSON: string | null = localStorage.getItem('cartProducts');
     const existingProducts: ProductResultType[] = existingProductsJSON
-        ? JSON.parse(existingProductsJSON)
-        : [];
+      ? JSON.parse(existingProductsJSON)
+      : [];
 
     const updatedProducts = existingProducts.map((product: ProductResultType) => {
-      if (product.id === id) {
-        if (product.quantidade < product.available_quantity) {
-          const newQuantity: number = product.quantidade + 1;
-          product.quantidade = newQuantity;
-        }
+      if (product.id === id && product.quantidade < product.available_quantity) {
+        const newQuantity: number = product.quantidade + 1;
+        product.quantidade = newQuantity;
       }
       return product;
     });
@@ -49,7 +47,6 @@ function ShoppingCart({ productDetails }: ShoppingCartProps) {
     localStorage.setItem('cartProducts', JSON.stringify(updatedProducts));
     setCartItems(updatedProducts);
   };
-
 
   const handleDeleteButton = (id:string) => {
     const cartProductsStringfied = localStorage.getItem('cartProducts') as string;
