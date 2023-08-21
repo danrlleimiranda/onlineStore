@@ -5,9 +5,9 @@ import * as api from './services/api';
 import ShoppingCart from './pages/ShoppingCart';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
+import './App.css';
 
 function App() {
-  const [productDetails, setProductDetails] = useState<ProductResultType[]>([]);
   const [categories, setCategories] = useState<CategoryType[]>([]);
 
   useEffect(() => {
@@ -29,7 +29,6 @@ function App() {
     const updatedProducts = [...existingProducts, { ...product, quantidade: 1 }];
 
     // Atualizar o estado local e o localStorage com a lista atualizada de produtos
-    setProductDetails(updatedProducts);
     localStorage.setItem('cartProducts', JSON.stringify(updatedProducts));
   };
 
@@ -37,9 +36,7 @@ function App() {
     <Routes>
       <Route
         path="/shopping-cart"
-        element={ <ShoppingCart
-          productDetails={ productDetails }
-        /> }
+        element={ <ShoppingCart /> }
       />
       <Route
         path="/"

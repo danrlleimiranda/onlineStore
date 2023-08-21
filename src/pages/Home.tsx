@@ -3,7 +3,7 @@ import {
   getProductsFromCategoryAndQuery,
 } from '../services/api';
 import { ProductResultType, CategoryType } from '../types/queryTypes';
-import ProductsList from './ProductsList';
+import ProductsList from '../components/ProductsList';
 import Search from '../components/Search';
 
 type HomeProps = {

@@ -1,0 +1,48 @@
+.product-list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: auto;
+  width: 90%;
+}
+
+.product-card {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px 10px;
+  transition: all ease 0.5s;
+  width: fit-content;
+}
+
+.product-card:hover {
+  transform: scale(1.1);
+  transition: all ease 0.5s;
+}
+
+.product-card:active {
+  transform: scale(1);
+  transition: all ease 0.5s;
+}
+
+.product-card a {
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+.product-card img {
+  width: 9rem;
+}
+
+.product-card h4 {
+  text-align: center;
+  width: 19rem;
+}
