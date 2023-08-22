@@ -19,8 +19,8 @@
   margin: 20px;
   padding: 20px 10px;
   transition: all ease 0.5s;
-  width: fit-content;
   height: 400px;
+  width: fit-content;
 }
 
 .product-card:hover {

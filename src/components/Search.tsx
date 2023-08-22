@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CategoryType, ProductResultType } from '../types/queryTypes';
+import { CategoryType } from '../types/queryTypes';
 import iconCart from '../images/cart3.svg';
 
 type SearchProps = {

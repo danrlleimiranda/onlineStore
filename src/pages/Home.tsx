@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   getProductsFromCategoryAndQuery,
 } from '../services/api';
-import { ProductResultType, CategoryType, ProductDetailsType } from '../types/queryTypes';
+import { ProductResultType, CategoryType } from '../types/queryTypes';
 import ProductsList from '../components/ProductsList';
 import Search from '../components/Search';
 
