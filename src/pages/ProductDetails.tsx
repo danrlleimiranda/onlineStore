@@ -35,7 +35,6 @@ function ProductDetails({ handleProductDetails }: ProductDetailsProps) {
     const fetchData = async () => {
       if (id) {
         const data = await getProductById(id);
-        console.log(data);
         setProductDetails(data);
       }
     };
