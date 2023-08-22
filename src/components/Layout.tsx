@@ -1,8 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import iconCart from '../images/cart3.svg';
-import Search from './Search';
-import { CategoryType } from '../types/queryTypes';
 import InputSearch from './InputSearch';
 import './Layout.css';
 

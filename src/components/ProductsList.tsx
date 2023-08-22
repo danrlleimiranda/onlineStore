@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ProductResultType } from '../types/queryTypes';
 import './productList.css';
-import IconFreeShipping from '../images/box-seam.svg';
 
 type ProductsProps = {
   returnedProducts: ProductResultType[];
