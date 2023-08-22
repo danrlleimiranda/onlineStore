@@ -37,13 +37,13 @@ export type CategoryType = {
 };
 
 export type ProductResultType = {
-  id: string
-  title: string
-  thumbnail: string
-  price: number
-  quantidade: number,
-  available_quantity: number
-  shipping: { free_shipping: boolean }
+  id: string;
+  title: string;
+  thumbnail: string;
+  price: number;
+  quantidade: number;
+  available_quantity: number;
+  shipping: { free_shipping: boolean };
 };
 
 export type ProductDetailsType = {

@@ -2,16 +2,17 @@ import { useState } from 'react';
 import {
   getProductsFromCategoryAndQuery,
 } from '../services/api';
-import { ProductResultType, CategoryType } from '../types/queryTypes';
+import { ProductResultType, CategoryType, ProductDetailsType } from '../types/queryTypes';
 import ProductsList from '../components/ProductsList';
 import Search from '../components/Search';
 
 type HomeProps = {
   handleProductDetails: (product: ProductResultType) => void
   categories: CategoryType[]
+  cartQuantity: number
 };
 
-function Home({ handleProductDetails, categories }:HomeProps) {
+function Home({ handleProductDetails, categories, cartQuantity }:HomeProps) {
   const [searchedProducts, setSearchedProducts] = useState<string>('');
   const [returnedProducts, setReturnedProducts] = useState<ProductResultType[]>([]);
   const [productsByCategory, setProductsByCategory] = useState<ProductResultType[]>([]);
@@ -24,6 +25,7 @@ function Home({ handleProductDetails, categories }:HomeProps) {
   const handleClick = async () => {
     const getSearchedProducts = await getProductsFromCategoryAndQuery(searchedProducts);
     setReturnedProducts(getSearchedProducts.results);
+
     setProductsByCategory([]);
     setSearchedProducts('');
   };
@@ -31,6 +33,7 @@ function Home({ handleProductDetails, categories }:HomeProps) {
   const handleCategoryClick = async (categoryName: string) => {
     const getCategorizedProducts = await getProductsFromCategoryAndQuery(categoryName);
     setProductsByCategory(getCategorizedProducts.results);
+    console.log(getCategorizedProducts);
     setReturnedProducts([]);
   };
 
@@ -39,6 +42,7 @@ function Home({ handleProductDetails, categories }:HomeProps) {
       <Search
         handleCategoryClick={ handleCategoryClick }
         categories={ categories }
+        cartQuantity={ cartQuantity }
       />
       <label>
         <input

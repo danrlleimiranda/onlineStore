@@ -1,33 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CategoryType } from '../types/queryTypes';
+import { CategoryType, ProductResultType } from '../types/queryTypes';
+import iconCart from '../images/cart3.svg';
 
 type SearchProps = {
   handleCategoryClick: (categoryId: string) => void
   categories: CategoryType[]
+  cartQuantity: number
 };
 
-function Search({ handleCategoryClick, categories }: SearchProps) {
-  const cartProducts = localStorage.getItem('cartProducts')
-    ? JSON.parse(localStorage.getItem('cartProducts') as string)
-    : [];
-
-  const calculateCartQuantity = () => {
-    return cartProducts.reduce((totalQuantity: number, product: any): any | number => {
-      if (product.quantidade) return totalQuantity + product.quantidade;
-      return totalQuantity + 1;
-    }, 0);
-  };
-
-  const shoppingCartLength = calculateCartQuantity();
-
+function Search({ handleCategoryClick, categories, cartQuantity }: SearchProps) {
   return (
     <div>
       <Link to="/shopping-cart" data-testid="shopping-cart-button">
-        Carrinho de compras
+        <img src={ iconCart } alt="" />
 
       </Link>
-      <span data-testid="shopping-cart-size">{shoppingCartLength}</span>
+      <span data-testid="shopping-cart-size">{cartQuantity}</span>
       <aside>
         <ul>
           {categories.map((category: CategoryType) => (

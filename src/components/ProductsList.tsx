@@ -17,7 +17,10 @@ function ProductsList({ returnedProducts,
             <Link to={ `/product/${product.id}` } data-testid="product-detail-link">
               <img src={ product.thumbnail } alt={ product.title } />
               <h4>{product.title}</h4>
-              <p>{`R$ ${product.price && product.price.toFixed(2)}`}</p>
+              <p>{`R$ ${product.price ? product.price.toFixed(2) : 0}`}</p>
+
+              {product.shipping.free_shipping
+              && <p data-testid="free-shipping">Frete Grátis!</p>}
             </Link>
             <button
               data-testid="product-add-to-cart"
