@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ProductResultType, CategoryType } from './types/queryTypes';
 import * as api from './services/api';
 import ShoppingCart from './pages/ShoppingCart';
-import Home from './pages/Home';
+import Home from './pages/home/Home';
 import ProductDetails from './pages/ProductDetails';
+import Layout from './components/Layout';
 import './App.css';
 
 function App() {
@@ -14,8 +15,12 @@ function App() {
     ? JSON.parse(existingProductsJSON)
     : [];
 
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [cartQuantity, setCartQuantity] = useState<number>(existingProducts.length);
+  const [searchedProducts, setSearchedProducts] = useState<string>('');
+  const [returnedProducts, setReturnedProducts] = useState<ProductResultType[]>([]);
+  const [productsByCategory, setProductsByCategory] = useState<ProductResultType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,28 +44,67 @@ function App() {
       }, 0));
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement
+  | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setSearchedProducts(event.target.value);
+  };
+
+  const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    const getSearchedProducts = await
+    api.getProductsFromCategoryAndQuery(searchedProducts);
+    setReturnedProducts(getSearchedProducts.results);
+
+    setProductsByCategory([]);
+    setSearchedProducts('');
+    navigate('/');
+  };
+
+  const handleCategoryClick = async (categoryName: string) => {
+    const getCategorizedProducts = await
+    api.getProductsFromCategoryAndQuery(categoryName);
+
+    setProductsByCategory(getCategorizedProducts.results);
+    setReturnedProducts([]);
+    navigate('/');
+  };
+
   return (
     <Routes>
-      <Route
-        path="/shopping-cart"
-        element={ <ShoppingCart /> }
-      />
-      <Route
-        path="/"
-        element={ <Home
-          handleProductDetails={ handleProductDetails }
-          categories={ categories }
-          cartQuantity={ cartQuantity }
-        /> }
-      />
 
       <Route
-        path="/product/:id"
-        element={ <ProductDetails
+        path="/"
+        element={ <Layout
           cartQuantity={ cartQuantity }
-          handleProductDetails={ handleProductDetails }
+          handleChange={ handleChange }
+          handleClick={ (event:
+          React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(event) }
+          searchedProducts={ searchedProducts }
         /> }
-      />
+      >
+
+        <Route
+          index
+          element={ <Home
+            handleCategoryClick={ handleCategoryClick }
+            categories={ categories }
+            handleProductDetails={ handleProductDetails }
+            productsByCategory={ productsByCategory }
+            returnedProducts={ returnedProducts }
+          /> }
+        />
+        <Route
+          path="/shopping-cart"
+          element={ <ShoppingCart /> }
+        />
+
+        <Route
+          path="/product/:id"
+          element={ <ProductDetails
+            handleProductDetails={ handleProductDetails }
+          /> }
+        />
+      </Route>
     </Routes>
   );
 }

@@ -1,0 +1,32 @@
+.category-list {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+}
+
+.category-list label {
+  color: black;
+  cursor: pointer;
+}
+
+.category-list li {
+  margin-top: 5px;
+  transition: 0.2s all ease;
+}
+
+.category-list li:hover {
+  color: white;
+  transform: scale(1.1);
+  transition: 0.2s all ease;
+}
+
+aside {
+  background-color: grey;
+  border-radius: 10px;
+  height: fit-content;
+  margin-left: 30px;
+  margin-top: 20px;
+  padding: 30px;
+}

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import { ProductResultType } from '../types/queryTypes';
-import cartIcon from '../images/cart3.svg';
 
 type ProductDetailsProps = {
   handleProductDetails: (product: ProductResultType) => void;
-  cartQuantity: number
 };
 
-function ProductDetails({ handleProductDetails, cartQuantity }: ProductDetailsProps) {
+function ProductDetails({ handleProductDetails }: ProductDetailsProps) {
   const initialState = {
     id: '',
     title: '',
@@ -33,15 +31,7 @@ function ProductDetails({ handleProductDetails, cartQuantity }: ProductDetailsPr
 
   return (
     <div>
-      <div>
-        <Link to="/shopping-cart" data-testid="shopping-cart-button">
-          <img src={ cartIcon } alt="" />
-          <span data-testid="shopping-cart-size">{cartQuantity}</span>
-        </Link>
-      </div>
-      <div>
-        <Link to="/">Home</Link>
-      </div>
+
       <div data-testid="product">
 
         <h2 data-testid="product-detail-name">{productDetails?.title}</h2>

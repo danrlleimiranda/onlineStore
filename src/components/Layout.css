@@ -1,0 +1,59 @@
+header {
+  align-items: center;
+  background-color: yellow;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.search-box {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  margin-top: 20px;
+}
+
+form input {
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 0.2rem 0 0 0.2rem;
+  border-right: none;
+  padding: 10px;
+  width: 500px;
+}
+
+header button {
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 0 0.2rem 0.2rem 0;
+  padding: 10px;
+  width: 50px;
+}
+
+header button img {
+  width: 12px;
+}
+
+.active {
+  color: red;
+}
+
+a {
+  margin: 20px;
+  text-decoration: none;
+}
+
+header a img {
+  width: 40px;
+}
+
+aside ul {
+  list-style: none;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+}

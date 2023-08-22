@@ -5,22 +5,31 @@
   justify-content: center;
   list-style: none;
   margin: auto;
-  width: 90%;
+  width: 80%;
 }
+
+.product-list hr {
+  width: 100%;
+}
+
 
 .product-card {
   align-items: center;
-  background-color: white;
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 400px;
+  height: fit-content;
   justify-content: center;
   margin: 20px;
   padding: 20px 10px;
   transition: all ease 0.5s;
   width: fit-content;
+}
+
+.product-container {
+  width: 80%;
 }
 
 .product-card:hover {

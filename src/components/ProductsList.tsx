@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ProductResultType } from '../types/queryTypes';
 import './productList.css';
+import IconFreeShipping from '../images/box-seam.svg';
 
 type ProductsProps = {
   returnedProducts: ProductResultType[];
@@ -16,6 +17,7 @@ function ProductsList({ returnedProducts,
           <div data-testid="product" className="product-card">
             <Link to={ `/product/${product.id}` } data-testid="product-detail-link">
               <img src={ product.thumbnail } alt={ product.title } />
+              <hr />
               <h4>{product.title}</h4>
               <p>{`R$ ${product.price ? product.price.toFixed(2) : 0}`}</p>
 

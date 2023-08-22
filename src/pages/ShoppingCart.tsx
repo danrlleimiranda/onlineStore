@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { ProductResultType } from '../types/queryTypes';
 
 function ShoppingCart() {
@@ -56,7 +55,6 @@ function ShoppingCart() {
 
   return (
     <div>
-      <div><Link to="/">Home</Link></div>
       {(cartItems === null
       || cartItems?.length === 0)
         && <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>}
