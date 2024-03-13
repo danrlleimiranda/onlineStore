@@ -13,7 +13,7 @@ function InputSearch({ handleChange, handleClick, searchedProducts }: InputSearc
     <div className="search-box">
       <form>
 
-        <label data-testid="home-initial-message">
+        <label>
 
           <input
             type="text"
@@ -27,7 +27,7 @@ function InputSearch({ handleChange, handleClick, searchedProducts }: InputSearc
           <img src={ iconSearch } alt="" />
         </button>
       </form>
-      <p>
+      <p data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </p>
 
