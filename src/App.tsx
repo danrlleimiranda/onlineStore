@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { ProductResultType, CategoryType } from './types/queryTypes';
-import * as api from './services/api';
+import './App.css';
+import Layout from './components/Layout';
+import ProductDetails from './pages/ProductDetails';
 import ShoppingCart from './pages/ShoppingCart';
 import Home from './pages/home/Home';
-import ProductDetails from './pages/ProductDetails';
-import Layout from './components/Layout';
-import './App.css';
+import * as api from './services/api';
+import { CategoryType, ProductResultType } from './types/queryTypes';
 
 function App() {
-  // adiciona um estado inicial para cartQuantity
   const existingProductsJSON = localStorage.getItem('cartProducts');
   const existingProducts: ProductResultType[] = existingProductsJSON
     ? JSON.parse(existingProductsJSON)
@@ -31,11 +30,8 @@ function App() {
   }, []);
 
   const handleProductDetails = (product: ProductResultType) => {
-    // Recuperar os produtos existentes do localStorage
 
-    // Adicionar o novo produto à lista de produtos existente
     const updatedProducts = [...existingProducts, { ...product, quantidade: 1 }];
-    // Atualizar o estado local e o localStorage com a lista atualizada de produtos
     localStorage.setItem('cartProducts', JSON.stringify(updatedProducts));
     setCartQuantity(updatedProducts
       .reduce((totalQuantity: number, products: ProductResultType): any | number => {
@@ -82,7 +78,6 @@ function App() {
           searchedProducts={ searchedProducts }
         /> }
       >
-
         <Route
           index
           element={ <Home

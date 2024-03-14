@@ -1,5 +1,5 @@
 import React from 'react';
-import iconSearch from '../public/search.svg';
+import iconSearch from '../../public/search.svg';
 
 type InputSearchType = {
   handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

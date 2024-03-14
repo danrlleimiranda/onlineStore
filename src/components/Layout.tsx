@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import iconCart from '../images/cart3.svg';
+import iconCart from '../../public/cart3.svg';
 import InputSearch from './InputSearch';
 import './Layout.css';
 
